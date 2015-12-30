@@ -29,9 +29,13 @@
     (teardown! [_ test node]
       (info node "tore down"))))
 
+(defn generator []
+	(->> gen/cas (gen/time-limit 3)))
+
 (defn noop-test
   "A simple test of distkv's safety."
   [version]
   (assoc tests/noop-test :os ubuntu/os
-   						  :db (db version)))
+   						 :db (db version)
+   						 :generator (generator)))
 
